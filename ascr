@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# example .ascrrc:
+
+# SERVER=tschuy@ash.osuosl.org
+# DIRECTORY=~/public_html/screenshots/
+# URL=https://ash.osuosl.org/~tschuy/screenshots
+
+source ~/.ascrrc  > /dev/null 2>&1
+
+if [ -z "$1" ]; then
+    NAME="$(date '+%d_%m_%Y_%H%M%S')"
+else
+    if [ ${1: -4} == ".png" ]; then
+        NAME=${1:0:-4}
+    else
+        NAME=$1
+    fi
+fi
+
+import /tmp/$NAME.png
+scp /tmp/$NAME.png $SERVER:$DIRECTORY > /dev/null 2>&1
+rm /tmp/$NAME.png
+
+if [ hash xclip 2>/dev/null ]; then
+    echo "$URL/$NAME.png"
+else
+    echo "$URL/$NAME.png"
+    echo "$URL/$NAME.png" | xclip -selection c
+fi
