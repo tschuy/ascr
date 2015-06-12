@@ -22,9 +22,7 @@ import /tmp/$NAME.png
 scp /tmp/$NAME.png $SERVER:$DIRECTORY > /dev/null 2>&1
 rm /tmp/$NAME.png
 
-if [ hash xclip 2>/dev/null ]; then
-    echo "$URL/$NAME.png"
-else
-    echo "$URL/$NAME.png"
+echo "$URL/$NAME.png"
+if hash xclip 2>/dev/null; then
     echo "$URL/$NAME.png" | xclip -selection c
 fi
