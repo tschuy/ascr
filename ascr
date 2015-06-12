@@ -18,13 +18,15 @@ else
     fi
 fi
 
-import /tmp/$NAME.png
+if [ -x /usr/sbin/screencapture ]; then
+    /usr/sbin/screencapture -x /tmp/$NAME.png
+else
+    import /tmp/$NAME.png
+fi
 scp /tmp/$NAME.png $SERVER:$DIRECTORY > /dev/null 2>&1
 rm /tmp/$NAME.png
 
-if [ hash xclip 2>/dev/null ]; then
-    echo "$URL/$NAME.png"
-else
-    echo "$URL/$NAME.png"
+echo "$URL/$NAME.png"
+if hash xclip 2>/dev/null; then
     echo "$URL/$NAME.png" | xclip -selection c
 fi
