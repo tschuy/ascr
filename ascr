@@ -18,7 +18,11 @@ else
     fi
 fi
 
-import /tmp/$NAME.png
+if [ -x /usr/sbin/screencapture ]; then
+    /usr/sbin/screencapture -x /tmp/$NAME.png
+else
+    import /tmp/$NAME.png
+fi
 scp /tmp/$NAME.png $SERVER:$DIRECTORY > /dev/null 2>&1
 rm /tmp/$NAME.png
 
