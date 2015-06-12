@@ -26,8 +26,6 @@ Configuration
 configuration. An example file with the three mandatory options has been
 provided:
 
-``
-SERVER=tschuy@ash.osuosl.org
-DIRECTORY=~/public_html/screenshots/
-URL=https://ash.osuosl.org/~tschuy/screenshots
-``
+    SERVER=tschuy@ash.osuosl.org
+    DIRECTORY=~/public_html/screenshots/
+    URL=https://ash.osuosl.org/~tschuy/screenshots
