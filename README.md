@@ -2,9 +2,7 @@ ascr
 ====
 
 A simple screenshot uploader to upload screenshots instantly to a remote
-webserver.
-
-Written because it shouldn't be more convenient to upload to imgur than
+webserver. Written because it shouldn't be more convenient to upload to imgur than
 a remote SSH host.
 
 Usage
@@ -29,3 +27,8 @@ provided:
     SERVER=tschuy@ash.osuosl.org
     DIRECTORY=~/public_html/screenshots/
     URL=https://ash.osuosl.org/~tschuy/screenshots
+
+Todo
+----
+
+Allow for uploading to Imgur?
