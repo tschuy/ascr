@@ -24,6 +24,13 @@ else
     import /tmp/$NAME.png
 fi
 scp /tmp/$NAME.png $SERVER:$DIRECTORY > /dev/null 2>&1
+
+if [ $? -eq 1 ]; then
+    rm /tmp/$NAME.png
+    echo "Unable to upload screenshot. Verify remote destination exists and that you have permissions to access it."
+    exit 1
+fi
+	
 rm /tmp/$NAME.png
 
 echo "$URL/$NAME.png"
