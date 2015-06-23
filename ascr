@@ -8,13 +8,26 @@
 
 source ~/.ascrrc  > /dev/null 2>&1
 
-if [ -z "$1" ]; then
+function print_url {
+    echo "$1"
+    if hash xclip 2>/dev/null; then
+        echo "$1" | xclip -selection c
+    fi
+}
+
+
+if [ $1 == "-i" ]; then
+    IMGUR=true
+    NAME=$2
+else
+    NAME=$1
+fi
+
+if [ -z "$NAME" ]; then
     NAME="$(date '+%d_%m_%Y_%H%M%S')"
 else
-    if [ ${1: -4} == ".png" ]; then
-        NAME=${1:0:-4}
-    else
-        NAME=$1
+    if [ ${NAME: -4} == ".png" ]; then
+        NAME=${NAME:0:-4}
     fi
 fi
 
@@ -23,6 +36,14 @@ if [ -x /usr/sbin/screencapture ]; then
 else
     import /tmp/$NAME.png
 fi
+
+if [ ! -z $IMGUR ]; then
+    RESPONSE=$(curl --compressed -fsSL --stderr - -H "Authorization: Client-ID 501478a47ed1014" -F "image=@/tmp/$NAME.png"  https://api.imgur.com/3/image) 
+    URL=$(echo $RESPONSE | python -c "import json,sys;obj=json.load(sys.stdin);print obj['data']['link']")
+    print_url $URL
+    exit 0
+fi
+
 scp /tmp/$NAME.png $SERVER:$DIRECTORY > /dev/null 2>&1
 
 if [ $? -eq 1 ]; then
@@ -32,8 +53,4 @@ if [ $? -eq 1 ]; then
 fi
 	
 rm /tmp/$NAME.png
-
-echo "$URL/$NAME.png"
-if hash xclip 2>/dev/null; then
-    echo "$URL/$NAME.png" | xclip -selection c
-fi
+print_url $URL/$NAME.png

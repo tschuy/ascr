@@ -17,6 +17,9 @@ your clipboard. Otherwise, it will just print it to the screen.
 ``ascr filename`` or ``ascr filename.png``: give the screenshot a specific
 filename.
 
+Alternatively, to upload to Imgur, just run ``ascr -i``. The URL will be copied
+to your clipboard and displayed just like it is for an SSH uploaded image.
+
 Configuration
 -------------
 
@@ -28,7 +31,3 @@ provided:
     DIRECTORY=~/public_html/screenshots/
     URL=https://ash.osuosl.org/~tschuy/screenshots
 
-Todo
-----
-
-Allow for uploading to Imgur?
