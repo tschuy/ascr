@@ -23,11 +23,10 @@ to your clipboard and displayed just like it is for an SSH uploaded image.
 Configuration
 -------------
 
-``ascr`` uses a ``.ascrrc`` file located in your home directory for
-configuration. An example file with the three mandatory options has been
-provided:
+``ascr`` uses either an ``.ascrrc`` file located in your home directory or an
+``ascr.conf`` located in ``~/.config/`` for configuration. An example file with
+the three mandatory options has been provided:
 
     SERVER=tschuy@ash.osuosl.org
     DIRECTORY=~/public_html/screenshots/
     URL=https://ash.osuosl.org/~tschuy/screenshots
-
