@@ -19,23 +19,40 @@ function print_url {
 
 if [ $1 == "-i" ]; then
     IMGUR=true
-    NAME=$2
-else
-    NAME=$1
+    if [[ $2 == "-w " ]]; then
+        WINDOW=true
+        NAME=$3
+    else
+        NAME=$2
+    fi
+elif [ $1 == "-w" ]; then
+    WINDOW=true
+    if [[ $2 == "-i" ]]; then
+        IMGUR=true
+        NAME=$3
+    else
+        NAME=$2
+    fi
 fi
 
 if [ -z "$NAME" ]; then
     NAME="$(date '+%d_%m_%Y_%H%M%S')"
 else
-    if [ ${NAME: -4} == ".png" ]; then
+    if [[ ${NAME: -4} == ".png" ]]; then
         NAME=${NAME:0:-4}
     fi
 fi
 
+# TODO support window screenshots on OS X
 if [ -x /usr/sbin/screencapture ]; then
     /usr/sbin/screencapture -x /tmp/$NAME.png
 else
-    import /tmp/$NAME.png
+    if [ ! -z $WINDOW ]; then
+        WINDOWID=$(xwininfo | grep -o "0x[0-9]\{7\}" | head -n 1)
+        import -window "$WINDOWID" /tmp/$NAME.png
+    else
+        import /tmp/$NAME.png
+    fi
 fi
 
 if [ ! -z $IMGUR ]; then
