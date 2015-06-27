@@ -17,6 +17,10 @@ your clipboard. Otherwise, it will just print it to the screen.
 ``ascr filename`` or ``ascr filename.png``: give the screenshot a specific
 filename.
 
+``ascr -w`` takes a screenshot of a single window. This feature has only been
+tested on Linux, and will not work with OS X (pending your pull request!). It
+works with ``-i`` and the filename options.
+
 Alternatively, to upload to Imgur, just run ``ascr -i``. The URL will be copied
 to your clipboard and displayed just like it is for an SSH uploaded image.
 
