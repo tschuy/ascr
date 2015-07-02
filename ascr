@@ -16,7 +16,7 @@ function print_url {
     fi
 }
 
-while getopts "wi" OPTION
+while getopts ":wi" OPTION
 do
      case $OPTION in
          w)
@@ -26,7 +26,10 @@ do
              IMGUR=true
              ;;
          ?)
-             echo "Bad input $OPTION"
+             echo "Usage: [-w] [-i] [name]"
+             echo "-w: screenshot window by click"
+             echo "-i: upload screenshot to imgur"
+             echo "name: upload screenshot with given name"
              exit
              ;;
      esac
