@@ -16,24 +16,28 @@ function print_url {
     fi
 }
 
+while getopts "wi" OPTION
+do
+     case $OPTION in
+         w)
+             WINDOW=true
+             ;;
+         i)
+             IMGUR=true
+             ;;
+         ?)
+             echo "Bad input $OPTION"
+             exit
+             ;;
+     esac
+done
 
-if [ $1 == "-i" ]; then
-    IMGUR=true
-    if [[ $2 == "-w " ]]; then
-        WINDOW=true
-        NAME=$3
-    else
-        NAME=$2
+ARGS=($1 $2 $3)
+for i in ${ARGS[@]}; do
+    if [ ! -z $i ] && [ $i != "-i" ] && [ $i != "-w" ]; then
+        NAME=$i
     fi
-elif [ $1 == "-w" ]; then
-    WINDOW=true
-    if [[ $2 == "-i" ]]; then
-        IMGUR=true
-        NAME=$3
-    else
-        NAME=$2
-    fi
-fi
+done
 
 if [ -z "$NAME" ]; then
     NAME="$(date '+%d_%m_%Y_%H%M%S')"
